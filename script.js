@@ -128,6 +128,21 @@ function draw() {
 }
 draw();
 
+// Add mouse position tracking
+let mouseX = 0;
+let mouseY = 0;
+
+canvas.addEventListener("mousemove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  mouseX = Math.floor((e.clientX - rect.left) / UNIT) * UNIT;
+  mouseY = Math.floor((e.clientY - rect.top) / UNIT) * UNIT;
+
+  if (dragging && dragging.onBoardIndex != null) {
+    dragging.x = mouseX - dragging.offsetX;
+    dragging.y = mouseY - dragging.offsetY;
+  }
+});
+
 // Enable dragging board pieces
 canvas.addEventListener("mousedown", (e) => {
   const rect = canvas.getBoundingClientRect();
@@ -142,25 +157,15 @@ canvas.addEventListener("mousedown", (e) => {
       mouseY >= p.y &&
       mouseY < p.y + p.size * UNIT
     ) {
-      dragging = { ...p, onBoardIndex: i, offsetX: mouseX - p.x, offsetY: mouseY - p.y };
+      dragging = { 
+        ...p, 
+        onBoardIndex: i, 
+        offsetX: mouseX - p.x, 
+        offsetY: mouseY - p.y 
+      };
       pieces.splice(i, 1); // Temporarily remove
       break;
     }
-  }
-});
-
-// Add mouse position tracking
-let mouseX = 0;
-let mouseY = 0;
-
-canvas.addEventListener("mousemove", (e) => {
-  const rect = canvas.getBoundingClientRect();
-  mouseX = Math.floor((e.clientX - rect.left) / UNIT) * UNIT;
-  mouseY = Math.floor((e.clientY - rect.top) / UNIT) * UNIT;
-
-  if (dragging && dragging.onBoardIndex != null) {
-    dragging.x = mouseX;
-    dragging.y = mouseY;
   }
 });
 
