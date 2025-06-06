@@ -149,11 +149,18 @@ canvas.addEventListener("mousedown", (e) => {
   }
 });
 
+// Add mouse position tracking
+let mouseX = 0;
+let mouseY = 0;
+
 canvas.addEventListener("mousemove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  mouseX = Math.floor((e.clientX - rect.left) / UNIT) * UNIT;
+  mouseY = Math.floor((e.clientY - rect.top) / UNIT) * UNIT;
+
   if (dragging && dragging.onBoardIndex != null) {
-    const rect = canvas.getBoundingClientRect();
-    dragging.x = Math.floor((e.clientX - rect.left - dragging.offsetX) / UNIT) * UNIT;
-    dragging.y = Math.floor((e.clientY - rect.top - dragging.offsetY) / UNIT) * UNIT;
+    dragging.x = mouseX;
+    dragging.y = mouseY;
   }
 });
 
@@ -185,13 +192,15 @@ canvas.addEventListener("contextmenu", (e) => {
   }
 });
 
-// Backspace to delete last piece
+// Add keyboard shortcuts for pieces
 document.addEventListener("keydown", (e) => {
+  // Handle existing backspace and arrow key functionality
   if (e.key === "Backspace" && pieces.length > 0) {
     pieces.pop();
+    showStatus("Last piece removed!");
+    return;
   }
   
-  // Arrow key movement for last piece
   if (pieces.length > 0) {
     const lastPiece = pieces[pieces.length - 1];
     switch (e.key) {
@@ -207,6 +216,22 @@ document.addEventListener("keydown", (e) => {
       case "ArrowDown":
         lastPiece.y = Math.min(canvas.height - lastPiece.size * UNIT, lastPiece.y + UNIT);
         break;
+    }
+  }
+
+  // Add number key shortcuts (1-8)
+  const numKey = parseInt(e.key);
+  if (numKey >= 1 && numKey <= 8) {
+    const pieceIndex = numKey - 1;
+    if (pieceIndex < colors.length) {
+      const { color, size } = colors[pieceIndex];
+      pieces.push({
+        x: mouseX,
+        y: mouseY,
+        size,
+        color
+      });
+      showStatus(`Added ${colors[pieceIndex].name} piece`);
     }
   }
 });
