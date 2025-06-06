@@ -139,14 +139,33 @@ draw();
 let mouseX = 0;
 let mouseY = 0;
 
+function snapToGrid(x, y, size) {
+  // Calculate the maximum allowed positions
+  const maxX = canvas.width - size * UNIT;
+  const maxY = canvas.height - size * UNIT;
+  
+  // Snap to grid and ensure within bounds
+  const snappedX = Math.min(Math.max(0, Math.floor(x / UNIT) * UNIT), maxX);
+  const snappedY = Math.min(Math.max(0, Math.floor(y / UNIT) * UNIT), maxY);
+  
+  return { x: snappedX, y: snappedY };
+}
+
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect();
-  mouseX = Math.floor((e.clientX - rect.left) / UNIT) * UNIT;
-  mouseY = Math.floor((e.clientY - rect.top) / UNIT) * UNIT;
+  const rawX = e.clientX - rect.left;
+  const rawY = e.clientY - rect.top;
+  
+  // Update mouse position for number key placement
+  const snapped = snapToGrid(rawX, rawY, 1);
+  mouseX = snapped.x;
+  mouseY = snapped.y;
 
   if (dragging && dragging.onBoardIndex != null) {
-    dragging.x = mouseX - dragging.offsetX;
-    dragging.y = mouseY - dragging.offsetY;
+    // Calculate grid position while maintaining offset
+    const gridPos = snapToGrid(rawX - dragging.offsetX, rawY - dragging.offsetY, dragging.size);
+    dragging.x = gridPos.x;
+    dragging.y = gridPos.y;
   }
 });
 
@@ -215,6 +234,10 @@ document.addEventListener("keydown", (e) => {
   
   if (pieces.length > 0) {
     const lastPiece = pieces[pieces.length - 1];
+    const currentPos = snapToGrid(lastPiece.x, lastPiece.y, lastPiece.size);
+    lastPiece.x = currentPos.x;
+    lastPiece.y = currentPos.y;
+    
     switch (e.key) {
       case "ArrowLeft":
         lastPiece.x = Math.max(0, lastPiece.x - UNIT);
@@ -237,9 +260,11 @@ document.addEventListener("keydown", (e) => {
     const pieceIndex = numKey - 1;
     if (pieceIndex < colors.length) {
       const { color, size } = colors[pieceIndex];
+      const gridPos = snapToGrid(mouseX, mouseY, size);
+      
       pieces.push({
-        x: mouseX,
-        y: mouseY,
+        x: gridPos.x,
+        y: gridPos.y,
         size,
         color
       });
