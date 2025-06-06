@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #eee;
+}
+
+#game {
+  display: flex;
+  padding: 10px;
+}
+
+#board {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+#sidebar {
+  width: 160px;
+  height: 450px;
+  overflow-y: auto;
+  background: #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #eee;
+}
+
+#game {
+  display: flex;
+  padding: 10px;
+}
+
+#board {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+#sidebar {
+  width: 160px;
+  height: 450px;
+  overflow-y: auto;
+  background: #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
