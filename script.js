@@ -110,7 +110,11 @@ function draw() {
 
   // Draw board pieces
   pieces.forEach((p) => {
-    ctx.fillStyle = p.color;
+    // Convert hex color to rgba for transparency
+    const r = parseInt(p.color.slice(1, 3), 16);
+    const g = parseInt(p.color.slice(3, 5), 16);
+    const b = parseInt(p.color.slice(5, 7), 16);
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.5)`;
     ctx.fillRect(p.x, p.y, p.size * UNIT, p.size * UNIT);
     ctx.strokeStyle = "#000";
     ctx.strokeRect(p.x, p.y, p.size * UNIT, p.size * UNIT);
@@ -118,7 +122,10 @@ function draw() {
 
   // Draw currently dragged piece
   if (dragging) {
-    ctx.fillStyle = dragging.color;
+    const r = parseInt(dragging.color.slice(1, 3), 16);
+    const g = parseInt(dragging.color.slice(3, 5), 16);
+    const b = parseInt(dragging.color.slice(5, 7), 16);
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.5)`;
     ctx.fillRect(dragging.x, dragging.y, dragging.size * UNIT, dragging.size * UNIT);
     ctx.strokeStyle = "#000";
     ctx.strokeRect(dragging.x, dragging.y, dragging.size * UNIT, dragging.size * UNIT);
