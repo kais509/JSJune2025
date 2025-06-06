@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Puzzle Game</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #eee;
+    }
+
+    #game {
+      display: flex;
+      padding: 10px;
+    }
+
+    #board {
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    #sidebar {
+      width: 160px;
+      height: 450px;
+      overflow-y: auto;
+      background: #ddd;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <canvas id="board" width="450" height="450"></canvas>
+    <div id="sidebar"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
