@@ -7,8 +7,8 @@ const colors = [
   { name: "LightBlue", color: "#ADD8E6", size: 9 },
   { name: "Brown", color: "#8B4513", size: 8 },
   { name: "Yellow", color: "#FFFF00", size: 7 },
-  { name: "MidBlue", color: "#87CEFA", size: 6 },
-  { name: "Pink", color: "#FFC0CB", size: 5 },
+  { name: "Blue", color: "#1c8cd1", size: 6 },
+  { name: "Maroon", color: "#8b0037", size: 5 },
   { name: "DarkBlue", color: "#00008B", size: 4 },
   { name: "Orange", color: "#FFA500", size: 3 },
   { name: "Green", color: "#008000", size: 2 },
@@ -32,6 +32,35 @@ colors.forEach(({ color, size }) => {
   });
 
   sidebar.appendChild(btn);
+});
+
+// Save/Load functionality
+const saveBtn = document.getElementById("saveBtn");
+const loadBtn = document.getElementById("loadBtn");
+const statusMessage = document.getElementById("statusMessage");
+
+function showStatus(message) {
+  statusMessage.textContent = message;
+  // Clear the message after 2 seconds
+  setTimeout(() => {
+    statusMessage.textContent = "";
+  }, 2000);
+}
+
+saveBtn.addEventListener("click", () => {
+  const saveData = JSON.stringify(pieces);
+  localStorage.setItem("puzzleBoard", saveData);
+  showStatus("Board saved successfully!");
+});
+
+loadBtn.addEventListener("click", () => {
+  const savedData = localStorage.getItem("puzzleBoard");
+  if (savedData) {
+    pieces = JSON.parse(savedData);
+    showStatus("Board loaded successfully!");
+  } else {
+    showStatus("No saved board found!");
+  }
 });
 
 // Canvas drop handling
