@@ -22,15 +22,6 @@ An interactive puzzle game where you can drag and drop different sized blocks on
   7. Orange (size 3)
   8. Green (size 2)
 
-## How to Play
-1. Drag blocks from the sidebar onto the canvas
-2. Click and drag blocks to move them around
-3. Use arrow keys to move the last placed block
-4. Right-click or press backspace to delete blocks
-5. Drag blocks back to the sidebar to remove them
-6. Press 1-8 to quickly place pieces at your mouse position
-7. Use the Save/Load buttons to preserve your board state
-
 ## Controls
 - **Mouse**: Drag and drop pieces
 - **Right-click**: Delete piece under cursor
@@ -39,8 +30,3 @@ An interactive puzzle game where you can drag and drop different sized blocks on
 - **Number Keys 1-8**: Place corresponding piece at mouse position
 - **Save/Load Buttons**: Preserve and restore board states
 
-## Live Demo
-[Play the game here](https://YOUR_USERNAME.github.io/REPO_NAME/)
-
-## Credits
-Original game by [@camjeff](https://camjeff.github.io/June2025/)
